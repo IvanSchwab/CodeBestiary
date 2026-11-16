@@ -8,13 +8,13 @@ What was decided during the build that `SPEC.md` does not cover, or that departs
 - **Cache Components is turned off.** The scaffold enables `cacheComponents` and `partialPrefetching`. With them, a locked or unknown beast URL answered 200 with a streamed "not found" instead of a real 404, and `dynamicParams = false` is not available. The site is fully static, so both flags were removed and the routes use `dynamicParams = false`.
 - **URLs without a locale are redirected, not only `/`.** `/about` goes to `/en/about` or `/es/about` by the same rule as `/`. This keeps every 404 localized. URLs that already carry `/en` or `/es` are never redirected, as the SPEC requires.
 - **Unknown URLs under a locale** are caught by `app/[lang]/[...rest]` and render the localized 404.
-- **Theme script** is loaded with `next/script` (`beforeInteractive`) so it runs before first paint.
+- **Theme script** is a plain inline `<script>` at the top of `<body>`, so it runs before first paint. Two alternatives were measured and rejected: `next/script` queues the code until the Next.js runtime loads (the wrong theme can flash), and the same script inside `<head>` caused an intermittent React hydration error (4 of 30 loads; 0 of 30 in `<body>`). In development only, the 404 page logs a React warning about this script tag; production is clean.
 - **`@types/node` raised to 24** because Vitest 5 does not install with version 20.
 - **Vitest** is the only dependency added (dev only). No runtime dependency was added beyond the scaffold.
 - **Open Graph image** uses the default font of `next/og`, not Fraunces. Shipping the font file only for the social card was not worth it.
 - **Favicon** is an SVG of the event loop glyph (`app/icon.svg`), replacing the scaffold's default.
 - **Locked glyphs** are drawn in muted ink at reduced opacity instead of the rule color, which was nearly invisible in the dark theme.
-- **Sticky figure only on tall screens.** The SPEC asks for a sticky figure from 1024 px. The figure block (card, legend, controls, code and console) is about 840 px tall, so it is sticky only when the viewport is at least 820 px high; on shorter screens it scrolls with the page instead of being cut off.
+- **Sticky figure only on tall screens.** The SPEC asks for a sticky figure from 1024 px. The figure block (card, legend, controls, code, console and caption) is about 920 px tall at desktop width, so it is sticky only when the viewport is at least 960 px high; on shorter screens it scrolls with the page instead of being cut off.
 - **ESLint ignores** `.claude/`, `.agents/` and `components/iso/` (vendored Anatomy code).
 - **About links:** only GitHub for now. The author will provide the rest.
 
@@ -30,4 +30,5 @@ What was decided during the build that `SPEC.md` does not cover, or that departs
 - **A state row** (call stack, microtasks, tasks) was added to the panel under the card. The SPEC lists only the snippet and the console.
 - **The kit's theme tokens are overridden** in `components/figures/figures.css` so figures take the site's paper and ink and follow `data-theme` on `<html>`. The kit files themselves are unmodified.
 - **Painter's order is set by hand**, not with the skill's geometric audit (`kit/audit.mjs`). The audit is meant for figures with pipes, cables and round turned parts; this one has none. The line-end check runs and passes with 0.
-- **Size:** about 45 solids, SVG only, no WebGL. Within Figure; no scope was cut.
+- **Size:** 47 solids and about 470 paths, SVG only, no WebGL. Within Figure; no scope was cut.
+- **Pointer:** a click or tap on the drawing advances one step (and restarts from the last one). There is no drag interaction.

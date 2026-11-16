@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { themeScript } from "@/components/theme-toggle";
@@ -61,9 +60,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
-        <Script id="theme" strategy="beforeInteractive">
-          {themeScript}
-        </Script>
+        {/* Inline and blocking on purpose: it sets the theme before first paint. */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <a
           href="#content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-surface focus:px-3 focus:py-2"

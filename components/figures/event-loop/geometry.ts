@@ -38,6 +38,7 @@ import {
   FOOT_H,
   HEAD,
   HUB,
+  MICRO_AT,
   MICRO_LANE,
   MICRO_PICK,
   MICRO_STAGE,
@@ -46,6 +47,8 @@ import {
   POST_TOP,
   RAM_R,
   RAM_UP,
+  STACK_AT,
+  TASK_AT,
   TASK_LANE,
   TASK_PICK,
   TASK_STAGE,
@@ -53,6 +56,7 @@ import {
   TOKEN_R,
   TRAY,
   TRAY_SLOTS,
+  onArm,
 } from "./view";
 
 /** Every static path of the dispatcher, computed once at module load. */
@@ -71,6 +75,8 @@ const dots = (points: Plane[], z: number) => pointsAt(points.map(([x, y]): Point
 const LABEL: Plan = { x: -128, y: 60, w: 46, d: 14, r: 1.5 };
 const RULER: Plan = { x: TASK_LANE.x, y: TASK_LANE.y + TASK_LANE.d + 3, w: TASK_LANE.w, d: 6, r: 1 };
 const rulerTicks = topTicks(RULER.x + 4, RULER.x + RULER.w - 4, 4, 5, RULER.y + 0.8, 0.6, [2, 3.6], P);
+const SHORT_RULER: Plan = { x: MICRO_LANE.x, y: MICRO_LANE.y + MICRO_LANE.d + 3, w: MICRO_LANE.w, d: 6, r: 1 };
+const shortTicks = topTicks(SHORT_RULER.x + 4, SHORT_RULER.x + SHORT_RULER.w - 4, 4, 5, SHORT_RULER.y + 0.8, 0.6, [2, 3.6], P);
 
 export const BASE_ART = {
   halo: haloOf(BASE, -BASE_H - FOOT_H, BASE_H, P),
@@ -85,6 +91,9 @@ export const BASE_ART = {
   ruler: solid(RULER, 0, 0.6, 3),
   rulerMinor: rulerTicks.minor,
   rulerMajor: rulerTicks.major,
+  shortRuler: solid(SHORT_RULER, 0, 0.6, 3),
+  shortRulerMinor: shortTicks.minor,
+  shortRulerMajor: shortTicks.major,
   label: solid(LABEL, 0, 0.8, 4),
   labelLine: planOutline(insetPlan(LABEL, 1.6), 0.8, P),
   labelRules: join([
@@ -104,6 +113,8 @@ export const BASE_ART = {
 /* A roller lane: a bed, rollers across it, a stop at the far end and two seats. */
 
 function laneOf(plan: Plan, seats: Plane[], stop: boolean) {
+  // A feeler post on the far edge, beside the pickup seat.
+  const feeler: Plane = [seats[0][0], plan.y + 1.9];
   const rollers: string[] = [];
   for (let x = plan.x + 5; x <= plan.x + plan.w - 4; x += 5.5) {
     rollers.push(lineOnTop([x, plan.y], [x, plan.y + plan.d], DECK, P));
@@ -123,6 +134,8 @@ function laneOf(plan: Plan, seats: Plane[], stop: boolean) {
           DECK + 5,
         )
       : [],
+    feeler: stop ? round(feeler, 1.7, DECK, 7, 14) : null,
+    feelerTip: stop ? dots([feeler], DECK + 7) : [],
     seats: join(seats.map((seat) => circle(seat, TOKEN_R + 1.4, DECK, 36))),
     edges: [side(plan.y), side(plan.y + plan.d - 1.6)].map((rail) => planOutline(rail, DECK, P, 2)).join(""),
   };
@@ -150,7 +163,12 @@ const BOLTS = Array.from({ length: 6 }, (_, index): Plane => {
   return [HUB[0] + 11.6 * Math.cos(angle), HUB[1] + 11.6 * Math.sin(angle)];
 });
 
+/** One detent pin per station of the arm: stack, microtasks, tasks. */
+const pinAt = (degrees: number) => round(onArm(degrees, 12.9), 1.5, 4, 2.2, 12);
+
 export const HUB_ART = {
+  pinsBack: [pinAt(TASK_AT)],
+  pinsFront: [pinAt(STACK_AT), pinAt(MICRO_AT)],
   pedestal: round(HUB, 16, 0, 4, 56, 0.6),
   ticksMinor: hubTicks.minor,
   ticksMajor: hubTicks.major,
@@ -173,8 +191,9 @@ export const ARM_ART = {
   pad: round(TIP, 4.2, DECK + TOKEN_H + 10, 2, 24),
   head: round(TIP, 5, BEAM_Z - 2, BEAM_H + 4, 28, 0.5),
   headSeam: sideArc(TIP[0], TIP[1], 5, BEAM_Z, P, 16),
-  headRing: circle(TIP, 2.6, BEAM_TOP + 2, 18),
-  headScrew: dots([TIP], BEAM_TOP + 2),
+  headRing: circle(TIP, 3.6, BEAM_TOP + 2, 18),
+  headNut: round(TIP, 2.3, BEAM_TOP + 2, 1.6, 6),
+  headScrew: dots([TIP], BEAM_TOP + 3.6),
   weight: round(TAIL, 5.6, BEAM_Z - 1.5, BEAM_H + 3, 28, 0.5),
   weightKnurl: knurl(TAIL[0], TAIL[1], 5.6, BEAM_Z - 1.5, BEAM_TOP + 1.5, 26, P),
   collar: round(HUB, 8.4, COLLAR_Z, COLLAR_H, 36, 0.5),
@@ -202,9 +221,10 @@ export const PRESS_ART = {
   post: solid(POST, 3, POST_TOP - 3, 3, 0.4),
   postSeams: join([sideSeam(POST, 7, P, 3), sideSeam(POST, POST_TOP - 4, P, 3)]),
   postCap: solid(POST_CAP, POST_TOP, 2.6, 3, 0.4),
+  brace: solid({ x: POST.x + 1.2, y: POST.y + POST.d, w: POST.w - 2.4, d: 4.6, r: 0.8 }, 3, 9, 3, 0.3),
+  braceScrew: dots([[POST.x + POST.w / 2, POST.y + POST.d + 2.3]], 12),
   ram: round(ANVIL, RAM_R, RAM_UP, 5, 32, 0.5),
   ramSeam: sideArc(ANVIL[0], ANVIL[1], RAM_R, RAM_UP + 1.6, P, 18),
-  neck: round(ANVIL, 4.4, RAM_UP + 4.9, 0.2, 20),
   head: solid(HEAD, HEAD_Z, HEAD_H, 5, 0.8),
   headSeam: sideSeam(HEAD, HEAD_Z + 3, P, 5),
   headInset: planOutline(insetPlan(HEAD, 2.4), HEAD_TOP, P, 5),

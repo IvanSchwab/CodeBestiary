@@ -66,6 +66,9 @@ const tailShift = (pose: Pose) => {
   return shift(x - x0, y - y0, -LIFT * pose.drop);
 };
 
+/** True when the arm's tail points toward the viewer (who looks from +x, +y). */
+const tailIsNear = (angle: number) => Math.cos(((angle + 180 - 45) * Math.PI) / 180) > 0;
+
 const REST = poseAt(0);
 /** Painted far to near where finished tokens sit side by side on the tray. */
 const PAINT_ORDER: TokenId[] = ["timeout", "promise", "script"];
@@ -127,6 +130,7 @@ export function EventLoopLive(props: Props) {
   const front = React.useRef(sameRefs());
   const pad = React.useRef<SVGGElement>(null);
   const weight = React.useRef<SVGGElement>(null);
+  const weightNear = React.useRef<SVGGElement>(null);
   const head = React.useRef<SVGGElement>(null);
   const collar = React.useRef<SVGGElement>(null);
   const beam = React.useRef<SVGGElement>(null);
@@ -162,7 +166,17 @@ export function EventLoopLive(props: Props) {
     }
     pad.current?.setAttribute("transform", tipShift(pose));
     head.current?.setAttribute("transform", tipShift(pose));
-    weight.current?.setAttribute("transform", tailShift(pose));
+    // The counterweight is painted before the collar when it is behind the
+    // column and after the cap when it swings round to the viewer's side.
+    const near = tailIsNear(pose.angle);
+    for (const [group, visible] of [
+      [weight.current, !near],
+      [weightNear.current, near],
+    ] as const) {
+      if (!group) continue;
+      group.style.display = visible ? "" : "none";
+      if (visible) group.setAttribute("transform", tailShift(pose));
+    }
     collar.current?.setAttribute("transform", shift(0, 0, -LIFT * pose.drop));
     writeSolid(beam.current, beamOf(pose.angle, pose.drop));
     writeSolid(column.current, columnAbove(pose.drop));
@@ -179,7 +193,7 @@ export function EventLoopLive(props: Props) {
         const forward = gap > 0;
         // The step being played sets the pace; a long jump (restart) hurries.
         const playingStep = forward ? Math.floor(shown.current) + 1 : Math.ceil(shown.current);
-        const pace = Math.max(1 / secondsInto(playingStep), Math.abs(gap) > 1.5 ? Math.abs(gap) / 1.1 : 0);
+        const pace = Math.max(1 / secondsInto(playingStep), Math.abs(gap) > 1.5 ? Math.abs(gap) / 2.2 : 0);
         const next = shown.current + (forward ? 1 : -1) * pace * dt;
         shown.current = forward ? Math.min(next, goal) : Math.max(next, goal);
       }
@@ -246,6 +260,7 @@ export function EventLoopLive(props: Props) {
           aria-valuenow={step}
           aria-valuetext={`${text.stepOf(step, LAST_STEP)}. ${saying}`}
           onKeyDown={onKeyDown}
+          onClick={() => go(step === LAST_STEP ? 0 : step + 1)}
         >
           <IsoFigure width={WIDTH} height={HEIGHT} label={text.label}>
             {props.base}
@@ -262,7 +277,7 @@ export function EventLoopLive(props: Props) {
               {props.armPad}
             </g>
             <LiveSolid anchor={beam} paths={beamOf(REST.angle, REST.drop)} tone="hi" />
-            <g ref={weight} transform={tailShift(REST)}>
+            <g ref={weight} transform={tailShift(REST)} style={tailIsNear(REST.angle) ? { display: "none" } : undefined}>
               {props.armWeight}
             </g>
             <g ref={head} transform={tipShift(REST)}>
@@ -271,6 +286,9 @@ export function EventLoopLive(props: Props) {
             <g ref={collar}>{props.armCollar}</g>
             <LiveSolid anchor={column} paths={columnAbove(REST.drop)} tone="mid" />
             {props.cap}
+            <g ref={weightNear} transform={tailShift(REST)} style={tailIsNear(REST.angle) ? undefined : { display: "none" }}>
+              {props.armWeight}
+            </g>
             <g ref={press}>{props.pressHead}</g>
           </IsoFigure>
         </div>

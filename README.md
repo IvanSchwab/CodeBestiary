@@ -10,7 +10,7 @@ Next.js (App Router), TypeScript and Tailwind CSS, statically generated. The fig
 
 ## Run it
 
-Requires Node 20.10 or newer.
+Requires Node 22.12 or newer (the project is developed on Node 24).
 
 ```sh
 npm install

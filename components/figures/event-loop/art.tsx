@@ -37,6 +37,9 @@ const BASE = (
     <Solid paths={BASE_ART.ruler} tone="lo" crease="none" />
     <Line d={BASE_ART.rulerMinor} tone="lo" />
     <Line d={BASE_ART.rulerMajor} tone="mid" />
+    <Solid paths={BASE_ART.shortRuler} tone="lo" crease="none" />
+    <Line d={BASE_ART.shortRulerMinor} tone="lo" />
+    <Line d={BASE_ART.shortRulerMajor} tone="mid" />
     <Solid paths={BASE_ART.label} tone="lo" crease="none" />
     <Line d={BASE_ART.labelLine} tone="faint" />
     <Line d={BASE_ART.labelRules} tone="lo" free />
@@ -53,6 +56,8 @@ function Lane({ art }: { art: typeof TASK_LANE_ART }) {
       <Line d={art.rollers} tone="faint" />
       <Line d={art.edges} tone="lo" />
       <Line d={art.seats} tone="mid" />
+      {art.feeler ? <Solid paths={art.feeler} tone="mid" crease="none" /> : null}
+      <Dots points={art.feelerTip} size={0.5} tone="hi" />
     </>
   );
 }
@@ -75,6 +80,8 @@ const POST = (
     <Dots points={PRESS_ART.footScrews} size={0.45} tone="mid" />
     <Solid paths={PRESS_ART.post} tone="mid" inner={<Line d={PRESS_ART.postSeams} tone="faint" />} />
     <Solid paths={PRESS_ART.postCap} tone="mid" />
+    <Solid paths={PRESS_ART.brace} tone="mid" />
+    <Dots points={PRESS_ART.braceScrew} size={0.45} tone="mid" />
   </g>
 );
 
@@ -93,7 +100,13 @@ const HUB = (
     <Line d={HUB_ART.ticksMinor} tone="lo" />
     <Line d={HUB_ART.ticksMajor} tone="mid" />
     <Dots points={HUB_ART.bolts} size={0.5} tone="mid" />
+    {HUB_ART.pinsBack.map((paths, index) => (
+      <Solid key={index} paths={paths} tone="mid" crease="none" />
+    ))}
     <Solid paths={HUB_ART.boss} tone="mid" />
+    {HUB_ART.pinsFront.map((paths, index) => (
+      <Solid key={index} paths={paths} tone="mid" crease="none" />
+    ))}
     <Solid paths={HUB_ART.column} tone="mid" crease="none" inner={<Line d={HUB_ART.columnSeams} tone="faint" />} />
   </g>
 );
@@ -137,6 +150,7 @@ const ARM_HEAD = (
   <g key="arm-head">
     <Solid paths={ARM_ART.head} tone="mid" inner={<Line d={ARM_ART.headSeam} tone="faint" />} />
     <Line d={ARM_ART.headRing} tone="lo" />
+    <Solid paths={ARM_ART.headNut} tone="mid" crease="none" />
     <Dots points={ARM_ART.headScrew} size={0.5} tone="mid" />
   </g>
 );

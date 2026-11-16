@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { lang as rootLang } from "next/root-params";
 import { getDictionary } from "@/dictionaries";
 import { defaultLocale, hasLocale } from "@/lib/i18n";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const value = await rootLang();
+  const lang = value && hasLocale(value) ? value : defaultLocale;
+  return { title: getDictionary(lang).meta.notFoundTitle, robots: { index: false } };
+}
 
 export default async function NotFound() {
   const value = await rootLang();

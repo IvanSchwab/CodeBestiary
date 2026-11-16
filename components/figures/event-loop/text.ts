@@ -34,7 +34,7 @@ export interface FigureText {
 const en: FigureText = {
   fig: "Fig 1",
   title: "Event loop",
-  hint: "← → step · space play",
+  hint: "Click or ← → to step",
   label:
     "A pick-and-place machine that models the JavaScript event loop. A rotating arm carries one token at a time from a long task lane or a short microtask lane to a press, which stands for the call stack. Finished tokens line up on a tray in the order they ran.",
   control: "Event loop, step by step",
@@ -89,7 +89,7 @@ const en: FigureText = {
 const es: FigureText = {
   fig: "Fig 1",
   title: "Event loop",
-  hint: "← → paso · espacio reproducir",
+  hint: "Clic o ← → para avanzar",
   label:
     "Una máquina de pick and place que modela el event loop de JavaScript. Un brazo giratorio lleva una ficha a la vez desde un carril largo de tareas o un carril corto de microtasks hasta una prensa, que representa el call stack. Las fichas terminadas se alinean en una bandeja en el orden en que se ejecutaron.",
   control: "Event loop, paso a paso",
