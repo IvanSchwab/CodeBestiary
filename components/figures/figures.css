@@ -1,0 +1,96 @@
+/* Site-wide skin for Anatomy figures. The kit scopes its tokens to .iso
+   (dark by default); here they follow the site theme on <html data-theme>
+   and take the warm paper and ink of the field guide. Figures stay
+   monochrome: the oxide red belongs to the site, not to the drawings. */
+
+.iso.figure {
+  --anatomy-mono: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+  --anatomy-page: var(--paper);
+  --anatomy-card: #201c18;
+  --anatomy-paper: #201c18;
+  --anatomy-text: #a39a8b;
+  --anatomy-strong: #ede6d8;
+  --anatomy-muted: #8a8174;
+  --anatomy-face: #292420;
+  --anatomy-top: #2a2520;
+  --anatomy-shade-0: #1a1713;
+  --anatomy-shade-1: #1d1a16;
+  --anatomy-shade-2: #221e1a;
+  --anatomy-shade-3: #26221d;
+  --anatomy-lit-top: #38322b;
+  --anatomy-lit-shade: #2c2722;
+  --anatomy-hi: #ddd5c7;
+  --anatomy-mid: #7d7568;
+  --anatomy-lo: #4f4840;
+  --anatomy-faint: #37322c;
+  --anatomy-lit: #ffffff;
+  --anatomy-halo: #0c0a08;
+  --anatomy-halo-opacity: 0.9;
+  --anatomy-dot: #ede6d8;
+}
+
+:root[data-theme="light"] .iso.figure {
+  --anatomy-card: #fbf8f1;
+  --anatomy-paper: #fbf8f1;
+  --anatomy-text: #5c554b;
+  --anatomy-strong: #1f1b16;
+  --anatomy-muted: #6b6257;
+  --anatomy-face: #fffdf9;
+  --anatomy-top: #fffdf9;
+  --anatomy-shade-0: #e1dacc;
+  --anatomy-shade-1: #e9e3d7;
+  --anatomy-shade-2: #f0ebe0;
+  --anatomy-shade-3: #f6f2e9;
+  --anatomy-lit-top: #ffffff;
+  --anatomy-lit-shade: #efe9dd;
+  --anatomy-hi: #2a2520;
+  --anatomy-mid: #8f877b;
+  --anatomy-lo: #b9b1a4;
+  --anatomy-faint: #d9d2c5;
+  --anatomy-lit: #0d0b09;
+  --anatomy-halo: #8a8272;
+  --anatomy-halo-opacity: 0.32;
+  --anatomy-dot: #3d3832;
+  --anatomy-lift: none;
+}
+
+/* Without JavaScript the theme attribute is never set: follow the system. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .iso.figure {
+    --anatomy-card: #fbf8f1;
+    --anatomy-paper: #fbf8f1;
+    --anatomy-text: #5c554b;
+    --anatomy-strong: #1f1b16;
+    --anatomy-muted: #6b6257;
+    --anatomy-face: #fffdf9;
+    --anatomy-top: #fffdf9;
+    --anatomy-shade-0: #e1dacc;
+    --anatomy-shade-1: #e9e3d7;
+    --anatomy-shade-2: #f0ebe0;
+    --anatomy-shade-3: #f6f2e9;
+    --anatomy-lit-top: #ffffff;
+    --anatomy-lit-shade: #efe9dd;
+    --anatomy-hi: #2a2520;
+    --anatomy-mid: #8f877b;
+    --anatomy-lo: #b9b1a4;
+    --anatomy-faint: #d9d2c5;
+    --anatomy-lit: #0d0b09;
+    --anatomy-halo: #8a8272;
+    --anatomy-halo-opacity: 0.32;
+    --anatomy-dot: #3d3832;
+  }
+}
+
+.iso.figure .iso-figure {
+  margin: 0;
+}
+
+.iso.figure .iso-plate {
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.iso.figure .iso-legend {
+  font-family: var(--font-source-serif), Georgia, serif;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}

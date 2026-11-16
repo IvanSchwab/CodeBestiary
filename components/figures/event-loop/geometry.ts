@@ -188,7 +188,7 @@ const POST_CAP: Plan = { x: POST.x - 1.2, y: POST.y - 1.2, w: POST.w + 2.4, d: P
 const HEAD_Z = RAM_UP + 5;
 const HEAD_H = 11;
 const HEAD_TOP = HEAD_Z + HEAD_H;
-const KNOB: Plane = [ANVIL[0], -22];
+const KNOB: Plane = [ANVIL[0], -24];
 
 export const PRESS_ART = {
   foot: solid(POST_FOOT, 0, 3, 4, 0.5),

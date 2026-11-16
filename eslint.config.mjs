@@ -15,6 +15,8 @@ const eslintConfig = defineConfig([
     // Vendored agent skills (third-party code, not part of the app):
     ".claude/**",
     ".agents/**",
+    // The Anatomy kit, copied in unmodified from the skill:
+    "components/iso/**",
   ]),
 ]);
 

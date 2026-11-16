@@ -113,7 +113,7 @@ export function poseAt(u: number): Pose {
 
   let angle = ARM.rest[index];
   let drop = 0;
-  let lit: TokenId | null = t < 0.5 ? before.stack[0] as TokenId ?? null : (after.stack[0] as TokenId) ?? null;
+  let lit: TokenId | null = null;
   const tokens = {} as Record<TokenId, Point3>;
   let slide = t;
 
@@ -164,7 +164,7 @@ export function poseAt(u: number): Pose {
 const RAD = Math.PI / 180;
 export const BEAM_Z = 30;
 export const BEAM_H = 4;
-const BEAM_HALF = 2.6;
+const BEAM_HALF = 3.2;
 
 /** The arm's beam at an angle: a bar from the counterweight to the head. */
 export function beamOf(angle: number, drop: number): SolidPaths {
@@ -204,6 +204,6 @@ export function needleOf(count: number): string {
 }
 
 /** Tokens far enough behind the hub are painted before it; the rest after. */
-export const isBehindHub = ([x, y]: Point3) => x + y < -60;
+export const isBehindHub = ([x, y]: Point3) => x + y < -45;
 
 export const depth = (point: Point3) => depthOf(point, P);
