@@ -149,3 +149,9 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Code is shown as typed: no "=>" ligatures. */
+code,
+pre {
+  font-variant-ligatures: none;
+}

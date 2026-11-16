@@ -13,9 +13,9 @@ import { pageMetadata } from "@/lib/site";
 
 type Props = PageProps<"/[lang]/beasts/[slug]">;
 
-// Every beast page is prerendered below, so nothing streams in: the route
-// may read its params without a Suspense placeholder.
-export const instant = false;
+// Only discovered beasts have a page. Any other slug, locked beasts
+// included, is a real 404.
+export const dynamicParams = false;
 
 export function generateStaticParams() {
   return locales.flatMap((lang) => discoveredBeasts.map((beast) => ({ lang, slug: beast.slug })));

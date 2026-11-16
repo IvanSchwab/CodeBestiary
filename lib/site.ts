@@ -35,6 +35,9 @@ export function pageMetadata({
   const languages: Record<string, string> = {};
   for (const locale of locales) languages[locale] = localizedPath(locale, path);
   languages["x-default"] = localizedPath(defaultLocale, path);
+  // A page that sets openGraph replaces the image inherited from the layout's
+  // opengraph-image file, so it is named here for every page.
+  const image = { url: `/${lang}/opengraph-image`, width: 1200, height: 630, alt: SITE_NAME };
 
   return {
     title,
@@ -48,7 +51,8 @@ export function pageMetadata({
       type: "website",
       locale: ogLocale[lang],
       alternateLocale: locales.filter((l) => l !== lang).map((l) => ogLocale[l]),
+      images: [image],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: [image] },
   };
 }

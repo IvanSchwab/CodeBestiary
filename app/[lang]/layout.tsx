@@ -27,6 +27,9 @@ export function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
 }
 
+// Only /en and /es exist.
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
