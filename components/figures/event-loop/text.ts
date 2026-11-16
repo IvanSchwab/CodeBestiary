@@ -44,7 +44,7 @@ const en: FigureText = {
     { mark: "flat", label: "Square: a microtask (the promise callback)" },
   ],
   caption:
-    "The arm is the loop. It turns one way and reaches the short microtask lane before the long task lane, so it takes a task only when no microtask is waiting. The press is the call stack: the head comes down once per call, and the dial counts the lines printed. The tray shows the result: the promise callback ran before the timer, even with a delay of 0.",
+    "The arm is the loop. It turns one way and reaches the short microtask lane before the long task lane, so it takes a task only when no microtask is waiting. The press is the call stack: the head comes down once per call, and the dial counts the lines printed. The tray fills from its far end, so it reads script, promise callback, timer callback: the promise ran before the timer, even with a delay of 0.",
   prev: "Previous step",
   next: "Next step",
   play: "Play",
@@ -99,7 +99,7 @@ const es: FigureText = {
     { mark: "flat", label: "Cuadrada: una microtask (el callback de la promesa)" },
   ],
   caption:
-    "El brazo es el loop. Gira en un solo sentido y llega al carril corto de microtasks antes que al carril largo de tareas, así que solo toma una tarea cuando no hay ninguna microtask esperando. La prensa es el call stack: el cabezal baja una vez por cada llamada, y el dial cuenta las líneas impresas. La bandeja muestra el resultado: el callback de la promesa se ejecutó antes que el del temporizador, incluso con un retardo de 0.",
+    "El brazo es el loop. Gira en un solo sentido y llega al carril corto de microtasks antes que al carril largo de tareas, así que solo toma una tarea cuando no hay ninguna microtask esperando. La prensa es el call stack: el cabezal baja una vez por cada llamada, y el dial cuenta las líneas impresas. La bandeja se llena desde el extremo más lejano, así que se lee script, callback de la promesa, callback del temporizador: la promesa se ejecutó antes que el temporizador, incluso con un retardo de 0.",
   prev: "Paso anterior",
   next: "Paso siguiente",
   play: "Reproducir",

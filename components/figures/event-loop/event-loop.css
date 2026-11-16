@@ -12,6 +12,14 @@
   stroke-width: 1.1;
 }
 
+.el-caption {
+  margin-top: 0.8rem;
+  font-family: var(--font-source-serif), Georgia, serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
 /* Below the card: controls, the sentence for the step, and code beside console. */
 
 .el-panel {
@@ -193,5 +201,16 @@
   }
   .el-code {
     font-size: 0.6875rem;
+  }
+}
+
+/* On a phone the drawing is enlarged a little inside the card so the parts stay readable. */
+@media (max-width: 560px) {
+  .el .el-stage {
+    overflow: hidden;
+  }
+  .iso-plate .el-stage .iso-svg {
+    width: 114%;
+    margin: -2% -7% -2%;
   }
 }

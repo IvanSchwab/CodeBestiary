@@ -119,6 +119,15 @@ body {
   }
 }
 
+/* The figure follows the reader down the sheet on wide, tall screens. On
+   short ones it would not fit, so it scrolls with the page instead. */
+@media (min-width: 1024px) and (min-height: 820px) {
+  .figure-sticky {
+    position: sticky;
+    top: 1.25rem;
+  }
+}
+
 /* Theme toggle: both icons are rendered; CSS shows the one that applies. */
 .theme-icon-dark {
   display: none;

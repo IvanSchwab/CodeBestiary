@@ -8,7 +8,7 @@ import { useInView, useLoop, useReadout, useStillness } from "../../iso/react/li
 import { LAST_STEP, SNIPPET, STEPS, TOKENS, type TokenId } from "./model";
 import { beamOf, columnAbove, isBehindHub, needleOf, poseAt, secondsInto, type Pose } from "./pose";
 import { figureText, frameName } from "./text";
-import { ARM_R, ARM_TAIL, HEIGHT, LIFT, STROKE, WIDTH, onArm, shift } from "./view";
+import { ARM_TAIL, HEIGHT, LIFT, STROKE, WIDTH, onArm, shift } from "./view";
 
 interface Props {
   lang: Locale;
@@ -70,6 +70,40 @@ const REST = poseAt(0);
 /** Painted far to near where finished tokens sit side by side on the tray. */
 const PAINT_ORDER: TokenId[] = ["timeout", "promise", "script"];
 
+/**
+ * Every token is drawn twice: once in the layer painted before the hub and
+ * once in the layer painted after it. Only the copy on the right side of the
+ * hub is shown, so a token carried round the back passes behind the column.
+ */
+function TokenLayer({
+  behind,
+  tokens,
+  register,
+}: {
+  behind: boolean;
+  tokens: Record<TokenId, React.ReactNode>;
+  register: (id: TokenId, node: SVGGElement | null) => void;
+}) {
+  return (
+    <g>
+      {PAINT_ORDER.map((id) => {
+        const place = REST.tokens[id];
+        const visible = isBehindHub(place) === behind;
+        return (
+          <g
+            key={id}
+            ref={(node) => register(id, node)}
+            transform={shift(place[0], place[1], place[2])}
+            style={visible ? undefined : { display: "none" }}
+          >
+            {tokens[id]}
+          </g>
+        );
+      })}
+    </g>
+  );
+}
+
 const sameRefs = () => ({ script: null, timeout: null, promise: null }) as Record<TokenId, SVGGElement | null>;
 
 export function EventLoopLive(props: Props) {
@@ -99,6 +133,13 @@ export function EventLoopLive(props: Props) {
   const column = React.useRef<SVGGElement>(null);
   const press = React.useRef<SVGGElement>(null);
   const needle = React.useRef<SVGPathElement>(null);
+
+  const keepBack = React.useCallback((id: TokenId, node: SVGGElement | null) => {
+    back.current[id] = node;
+  }, []);
+  const keepFront = React.useCallback((id: TokenId, node: SVGGElement | null) => {
+    front.current[id] = node;
+  }, []);
 
   const draw = React.useCallback((u: number) => {
     const pose = poseAt(u);
@@ -185,23 +226,6 @@ export function EventLoopLive(props: Props) {
   const saying = text.describe(now, step === LAST_STEP);
   const list = (items: string[]) => (items.length ? items.join(" › ") : text.empty);
 
-  const token = (id: TokenId, layer: React.RefObject<Record<TokenId, SVGGElement | null>>, behind: boolean) => {
-    const place = REST.tokens[id];
-    const visible = isBehindHub(place) === behind;
-    return (
-      <g
-        key={id}
-        ref={(node) => {
-          layer.current[id] = node;
-        }}
-        transform={shift(place[0], place[1], place[2])}
-        style={visible ? undefined : { display: "none" }}
-      >
-        {props.tokens[id]}
-      </g>
-    );
-  };
-
   return (
     <>
       <Plate
@@ -210,7 +234,6 @@ export function EventLoopLive(props: Props) {
         hint={text.hint}
         readout={text.readout(0, LAST_STEP, STEPS[0])}
         keys={text.keys}
-        caption={text.caption}
       >
         <div
           ref={anchor}
@@ -228,13 +251,13 @@ export function EventLoopLive(props: Props) {
             {props.base}
             {props.taskLane}
             {props.post}
-            <g>{PAINT_ORDER.map((id) => token(id, back, true))}</g>
+            <TokenLayer behind tokens={props.tokens} register={keepBack} />
             {props.microLane}
             {props.deck}
             {props.hub}
             {props.dial}
             <path ref={needle} className="iso-line el-needle" data-tone="lit" data-free="" d={needleOf(REST.count)} />
-            <g>{PAINT_ORDER.map((id) => token(id, front, false))}</g>
+            <TokenLayer behind={false} tokens={props.tokens} register={keepFront} />
             <g ref={pad} transform={tipShift(REST)}>
               {props.armPad}
             </g>
@@ -331,6 +354,8 @@ export function EventLoopLive(props: Props) {
           </div>
         </div>
       </div>
+
+      <p className="el-caption">{text.caption}</p>
     </>
   );
 }

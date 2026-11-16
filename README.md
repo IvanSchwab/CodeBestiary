@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Code Bestiary
 
-## Getting Started
+A field guide to programming concepts. Every concept I study becomes a "beast": a written sheet that explains how it behaves, and an interactive figure that shows it working. The site is bilingual (English and Spanish).
 
-First, run the development server:
+The first beast is the JavaScript event loop. Its figure is a small pick-and-place machine: the arm is the loop, the press is the call stack, and two lanes hold tasks and microtasks.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Stack
+
+Next.js (App Router), TypeScript and Tailwind CSS, statically generated. The figures are isometric SVG drawings built with the [Anatomy](https://github.com/wheresryan22/anatomy) skill and Claude Code. No UI library, analytics or tracking.
+
+## Run it
+
+Requires Node 20.10 or newer.
+
+```sh
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```sh
+npm run lint
+npm test         # checks the event loop model against Node
+npm run build
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Set `NEXT_PUBLIC_SITE_URL` to the public URL in production (for example `https://example.com`). It is the base for canonical URLs, hreflang, Open Graph and the sitemap. Without it the site falls back to the Vercel production URL when there is one, then to `http://localhost:3000`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Add a beast
 
-## Learn More
+With Claude Code, run:
 
-To learn more about Next.js, take a look at the following resources:
+```
+/new-beast <concept>
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The command asks for the text of the sheet, adds the entry, builds the figure with Anatomy, wires it to the page and waits for approval before committing.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+By hand:
 
-## Deploy on Vercel
+1. Add `content/beasts/<slug>.ts` (see `event-loop.ts`) and list it in `content/beasts/index.ts`.
+2. Add its glyph in `components/glyph.tsx`.
+3. Build its figure in `components/figures/<slug>/` and register it in `components/figures/index.tsx`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`CLAUDE.md` describes the structure, the data model and the conventions. `SPEC.md` (in Spanish) records the product decisions.

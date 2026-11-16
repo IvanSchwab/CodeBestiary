@@ -5,7 +5,7 @@ import { boxCorners, fitProjection, iso, type Flat, type Plan, type Plane, type 
  * x and y on the floor, z up. The viewer looks from +x, +y.
  */
 export const WIDTH = 600;
-export const HEIGHT = 356;
+export const HEIGHT = 336;
 export const AZIMUTH = 45;
 
 export const BASE: Plan = { x: -140, y: -84, w: 280, d: 168, r: 9 };

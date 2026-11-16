@@ -16,7 +16,7 @@ export function BeastCard({ beast, lang, dict }: { beast: Beast; lang: Locale; d
           <span className="label">{number}</span>
           <span className="label">{habitat}</span>
         </div>
-        <Glyph slug={beast.slug} className="my-6 h-16 w-16 text-rule" />
+        <Glyph slug={beast.slug} className="my-6 h-16 w-16 text-muted opacity-45" />
         <h3 className="mt-auto font-display text-xl leading-tight text-muted">{beast.name[lang]}</h3>
         <p className="label mt-3">
           <span aria-hidden="true">{dict.card.undiscovered}</span>

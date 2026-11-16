@@ -13,6 +13,10 @@ import { pageMetadata } from "@/lib/site";
 
 type Props = PageProps<"/[lang]/beasts/[slug]">;
 
+// Every beast page is prerendered below, so nothing streams in: the route
+// may read its params without a Suspense placeholder.
+export const instant = false;
+
 export function generateStaticParams() {
   return locales.flatMap((lang) => discoveredBeasts.map((beast) => ({ lang, slug: beast.slug })));
 }
@@ -66,7 +70,7 @@ export default async function BeastPage({ params }: Props) {
       </header>
 
       <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0">
-        <section aria-label={t.figure} className="lg:sticky lg:top-6">
+        <section aria-label={t.figure} className="figure-sticky">
           {Figure ? <Figure lang={lang} /> : null}
         </section>
       </div>
