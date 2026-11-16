@@ -4,6 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LOCALE_COOKIE, locales, type Locale } from "@/lib/i18n";
 
+/** Saves the visitor's explicit choice so "/" redirects to it next time. */
+function remember(locale: Locale) {
+  window.document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=31536000; samesite=lax`;
+}
+
 /** "EN / ES" switch. Links to the same page in the other language. */
 export function LangSwitch({
   lang,
@@ -16,10 +21,6 @@ export function LangSwitch({
 }) {
   const pathname = usePathname() ?? `/${lang}`;
   const rest = pathname.split("/").slice(2).join("/");
-
-  const remember = (locale: Locale) => {
-    document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=31536000; samesite=lax`;
-  };
 
   return (
     <nav aria-label={label} className="flex items-center gap-1.5 font-mono text-xs tracking-widest">
