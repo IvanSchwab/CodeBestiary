@@ -3,13 +3,13 @@ import { notFound } from "next/navigation";
 import { DraftBadge } from "@/components/draft-badge";
 import { getDictionary } from "@/dictionaries";
 import { hasLocale } from "@/lib/i18n";
-import { AUTHOR_GITHUB, REPO_URL, pageMetadata } from "@/lib/site";
+import { AUTHOR_GITHUB, AUTHOR_LINKEDIN, AUTHOR_PORTFOLIO, REPO_URL, pageMetadata } from "@/lib/site";
 
-/** The About copy is a draft until the author rewrites it. */
+/**
+ * "What this is" and "How it is built" are drafts until the author rewrites
+ * them. The bio under "Who I am" is the author's own text.
+ */
 const ABOUT_IS_DRAFT = true;
-
-/** Contact links shown under "Who I am". */
-const links = [{ label: "GitHub", url: AUTHOR_GITHUB }];
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/about">): Promise<Metadata> {
   const { lang } = await params;
@@ -28,19 +28,26 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
   if (!hasLocale(lang)) notFound();
   const dict = getDictionary(lang);
   const { about } = dict;
+  const links = [
+    { label: "LinkedIn", url: AUTHOR_LINKEDIN },
+    { label: "GitHub", url: AUTHOR_GITHUB },
+    { label: about.portfolio, url: AUTHOR_PORTFOLIO },
+  ];
+  const draft = ABOUT_IS_DRAFT ? <DraftBadge label={dict.beast.draft} hint={dict.beast.draftHint} /> : null;
 
   return (
     <div className="mx-auto max-w-[44rem] px-5 py-14 sm:px-8 sm:py-20">
-      <div className="flex flex-wrap items-center gap-4">
-        <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">{about.title}</h1>
-        {ABOUT_IS_DRAFT ? <DraftBadge label={dict.beast.draft} hint={dict.beast.draftHint} /> : null}
-      </div>
+      <h1 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">{about.title}</h1>
 
       <section className="mt-12" aria-labelledby="who">
         <h2 id="who" className="rule-double pt-4 font-display text-2xl font-semibold">
           {about.whoTitle}
         </h2>
-        <p className="mt-4 italic text-muted">{about.whoPending}</p>
+        <div className="prose-sheet mt-4">
+          {about.who.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
         <h3 className="label mt-6">{about.links}</h3>
         <ul className="mt-2 flex flex-wrap gap-x-6 gap-y-1">
           {links.map((link) => (
@@ -54,9 +61,12 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
       </section>
 
       <section className="mt-12" aria-labelledby="what">
-        <h2 id="what" className="rule-double pt-4 font-display text-2xl font-semibold">
-          {about.whatTitle}
-        </h2>
+        <div className="rule-double flex flex-wrap items-center gap-3 pt-4">
+          <h2 id="what" className="font-display text-2xl font-semibold">
+            {about.whatTitle}
+          </h2>
+          {draft}
+        </div>
         <div className="prose-sheet mt-4">
           {about.what.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
@@ -65,9 +75,12 @@ export default async function AboutPage({ params }: PageProps<"/[lang]/about">) 
       </section>
 
       <section className="mt-12" aria-labelledby="how">
-        <h2 id="how" className="rule-double pt-4 font-display text-2xl font-semibold">
-          {about.howTitle}
-        </h2>
+        <div className="rule-double flex flex-wrap items-center gap-3 pt-4">
+          <h2 id="how" className="font-display text-2xl font-semibold">
+            {about.howTitle}
+          </h2>
+          {draft}
+        </div>
         <div className="prose-sheet mt-4">
           {about.how.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>

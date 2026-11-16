@@ -5,6 +5,8 @@ export const SITE_NAME = "Code Bestiary";
 export const REPO_URL = "https://github.com/IvanSchwab/CodeBestiary";
 export const AUTHOR_NAME = "Ivan Schwab";
 export const AUTHOR_GITHUB = "https://github.com/IvanSchwab";
+export const AUTHOR_LINKEDIN = "https://www.linkedin.com/in/ivanschwab/";
+export const AUTHOR_PORTFOLIO = "https://ivanschwabdev.vercel.app/";
 
 /**
  * Absolute base URL for metadata, hreflang, Open Graph and the sitemap.

@@ -16,7 +16,7 @@ What was decided during the build that `SPEC.md` does not cover, or that departs
 - **Locked glyphs** are drawn in muted ink at reduced opacity instead of the rule color, which was nearly invisible in the dark theme.
 - **Sticky figure only on tall screens.** The SPEC asks for a sticky figure from 1024 px. The figure block (card, legend, controls, code, console and caption) is about 920 px tall at desktop width, so it is sticky only when the viewport is at least 960 px high; on shorter screens it scrolls with the page instead of being cut off.
 - **ESLint ignores** `.claude/`, `.agents/` and `components/iso/` (vendored Anatomy code).
-- **About links:** only GitHub for now. The author will provide the rest.
+- **About:** the bio is the author's text, lightly adapted and translated to English. Links are LinkedIn, GitHub and the portfolio. The draft badge moved from the page title to the two sections that are still drafts.
 
 ## Event loop figure
 

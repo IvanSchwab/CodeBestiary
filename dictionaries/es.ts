@@ -51,7 +51,12 @@ export const es: Dictionary = {
   about: {
     title: "Acerca de",
     whoTitle: "Quién soy",
-    whoPending: "Bio pendiente.",
+    who: [
+      "Soy desarrollador full-stack y me interesa entender el problema antes de escribir código. Lo que más me atrae de este trabajo es la lógica de negocio: cómo funciona un sistema por dentro, qué reglas lo gobiernan y cómo llevarlas a una interfaz que alguien use sin pensar.",
+      "Me especializo en software para el sector inmobiliario, un rubro que conozco desde adentro y donde quedan muchos procesos por resolver. Construí PIA Gestión, una plataforma multi-tenant en producción, desde la arquitectura de la base de datos hasta la interfaz.",
+      "Trabajo sobre todo con Vue, React, TypeScript, Supabase y PostgreSQL. Cuido los detalles que no se ven: la seguridad, la estructura del código y que lo construido se pueda mantener. Vivo en Buenos Aires. Code Bestiary es el registro de lo que sigo aprendiendo.",
+    ],
+    portfolio: "Portfolio",
     links: "Enlaces",
     whatTitle: "Qué es y por qué",
     what: [

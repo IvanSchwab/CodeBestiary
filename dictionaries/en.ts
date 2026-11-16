@@ -49,7 +49,12 @@ export const en = {
   about: {
     title: "About",
     whoTitle: "Who I am",
-    whoPending: "Bio pending.",
+    who: [
+      "I am a full-stack developer, and I like to understand the problem before I write any code. What draws me most to this work is business logic: how a system works inside, which rules govern it, and how to turn them into an interface someone can use without thinking.",
+      "I specialize in software for real estate, an industry I know from the inside and one with many processes still waiting to be solved. I built PIA Gestión, a multi-tenant platform running in production, from the database architecture to the interface.",
+      "I work mostly with Vue, React, TypeScript, Supabase and PostgreSQL. I care about the details nobody sees: security, the structure of the code, and whether what gets built can be maintained. I live in Buenos Aires. Code Bestiary is the record of what I keep learning.",
+    ],
+    portfolio: "Portfolio",
     links: "Links",
     whatTitle: "What this is and why",
     what: [
