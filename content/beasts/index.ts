@@ -1,5 +1,8 @@
 import type { Beast, DiscoveredBeast, Habitat, Localized } from "@/lib/beasts";
+import { connectionPool } from "./connection-pool";
 import { eventLoop } from "./event-loop";
+import { tokenBucket } from "./token-bucket";
+import { vueReactivity } from "./vue-reactivity";
 
 /**
  * The bestiary, in specimen order. To discover a locked beast, replace its
@@ -7,27 +10,9 @@ import { eventLoop } from "./event-loop";
  */
 export const beasts: Beast[] = [
   eventLoop,
-  {
-    slug: "vue-reactivity",
-    number: 2,
-    status: "locked",
-    name: { en: "Vue Reactivity", es: "Reactividad de Vue" },
-    habitat: "frontend",
-  },
-  {
-    slug: "token-bucket",
-    number: 3,
-    status: "locked",
-    name: { en: "Token Bucket", es: "Token bucket" },
-    habitat: "networking",
-  },
-  {
-    slug: "connection-pool",
-    number: 4,
-    status: "locked",
-    name: { en: "Connection Pool", es: "Connection pool" },
-    habitat: "data",
-  },
+  vueReactivity,
+  tokenBucket,
+  connectionPool,
   {
     slug: "jwt-refresh-tokens",
     number: 5,
