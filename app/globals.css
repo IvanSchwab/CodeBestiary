@@ -119,9 +119,12 @@ body {
   }
 }
 
-/* The figure follows the reader down the sheet on wide, tall screens. On
-   short ones it would not fit, so it scrolls with the page instead. */
-@media (min-width: 1024px) and (min-height: 960px) {
+/* The figure follows the reader down the sheet on wide screens. The block
+   (card, legend, controls, panel) is taller than most laptop viewports, so
+   while it is stuck its lower part (code, console, caption) waits below the
+   fold and comes into view at the end of the sheet. Only very short windows,
+   where the drawing and controls would not fit, scroll it with the page. */
+@media (min-width: 1024px) and (min-height: 600px) {
   .figure-sticky {
     position: sticky;
     top: 1.25rem;
