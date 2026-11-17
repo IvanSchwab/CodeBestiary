@@ -9,22 +9,23 @@ Add the beast "$ARGUMENTS" to Code Bestiary. Read `CLAUDE.md` and `SPEC.md` firs
 
 Look in `content/beasts/index.ts`. If the concept matches a locked beast, you will turn that entry into a discovered one and keep its slug and number. If it is new, propose a slug (kebab-case, English), the next free number, the names in English and Spanish and a habitat, and ask the author to confirm them. If no argument was given, ask which concept.
 
-## 2. Ask for the sheet text
+## 2. Draft the sheet
 
-Ask the author for the text of the sheet. **Never write it yourself**, not even as a draft or a suggestion to fill a gap. The sheet needs:
+Ask the author whether he brings his own text. If he does, use it; if it comes in one language only, translate it (site Spanish is neutral, without voseo; technical terms stay in English) and show him the translation before using it.
+
+Otherwise research the concept and write the sheet yourself, in English and Spanish, as a draft:
 
 - a one-line tagline;
 - behavior: 2 to 4 paragraphs;
 - dangers and confusions: a title and a body for each;
-- sightings: where they met the concept in practice (optional; without it the page shows the "field notes pending" placeholder);
-- sources: real links;
+- sources: real links you opened and checked, preferably specs and official docs;
 - ecosystem and danger level (1 to 5).
 
-If the text comes in one language only, translate it to the other (site Spanish is neutral, without voseo; technical terms stay in English) and show the author the translation to review before using it. If something is missing, ask for it. Do not fill it in.
+Every claim must be backed by the sources. Leave `sightings: null`: they are the author's experience. Draft them only if he asks, from his real projects. Show him the full text in both languages and apply his changes.
 
 ## 3. Add or update the entry
 
-Create `content/beasts/<slug>.ts` exporting a `DiscoveredBeast` (see `content/beasts/event-loop.ts`), with `draft: false` because the author wrote the text. Replace the locked entry in `content/beasts/index.ts` with it, or add it in number order. If the beast is new, add its glyph to `components/glyph.tsx` and, if needed, its habitat to `habitatLabels` and the `Habitat` type.
+Create `content/beasts/<slug>.ts` exporting a `DiscoveredBeast` (see `content/beasts/event-loop.ts`), with `draft: true` while the text is a draft. Set it to `false` only when the author wrote the text or approves it explicitly. Replace the locked entry in `content/beasts/index.ts` with it, or add it in number order. If the beast is new, add its glyph to `components/glyph.tsx` and, if needed, its habitat to `habitatLabels` and the `Habitat` type.
 
 ## 4. Build the figure with Anatomy
 

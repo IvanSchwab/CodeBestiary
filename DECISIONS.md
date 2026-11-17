@@ -81,3 +81,8 @@ What was decided during the build that `SPEC.md` does not cover, or that departs
 - **Scope cut:** approximate indexes (HNSW, IVFFlat) are left out; the figure shows exact search. The sheet explains them.
 - **The test** compares the rankings with a brute-force cosine reference written in the test, on the figure's data and on seeded random indexes in 2 and 384 dimensions, and checks that the dot product of normalized vectors equals the cosine, stable ties, scale invariance and the threshold result.
 - **Rendering.** Pins are drawn in two layers, in front of and behind the bar, and depth-sorted each frame; the rest of the painter's order is set by hand. 55 visible solids, about 600 paths, SVG only.
+
+## Who writes the sheets
+
+- **Claude researches and drafts the sheets.** Since the second batch of beasts, Claude researches each concept with checked sources and writes the sheet in both languages with `draft: true`. The author reviews it, and the badge goes away only with his explicit approval. If he brings his own text, that text is used. `/new-beast`, `CLAUDE.md` and `SPEC.md` follow this flow; it replaces the earlier rule that Claude never writes the sheet.
+- **The current sightings are illustrative anecdotes.** At the author's request, Claude wrote them from his real projects (PianoBar, PIA Visitas, PIA Gestión, the Pia landing). They are anecdotes, not a résumé: the situations are plausible, and some details are made up.

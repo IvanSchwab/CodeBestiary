@@ -37,7 +37,7 @@ export const vueReactivity: DiscoveredBeast = {
           body: "Everything an effect reads becomes a dependency, including values read only for logging. Reading a whole deep object, or iterating a large array, subscribes the effect to every part of it, so unrelated changes cause re-runs.",
         },
       ],
-      sightings: null,
+      sightings: ["In PIA Visitas, a component destructured the Pinia store to read the list of prospects more comfortably. The list rendered once and never updated again, even though the store did change. Destructuring had copied the values out of the reactive proxy. `storeToRefs` brought the reactivity back."],
     },
     es: {
       tagline: "El sistema que recuerda quién leyó cada valor, para saber a quién avisar cuando cambia.",
@@ -65,7 +65,7 @@ export const vueReactivity: DiscoveredBeast = {
           body: "Todo lo que un effect lee pasa a ser una dependencia, incluso los valores leídos solo para un log. Leer un objeto profundo entero, o recorrer un array grande, suscribe el effect a cada parte, y cambios que no tienen relación provocan nuevas ejecuciones.",
         },
       ],
-      sightings: null,
+      sightings: ["En PIA Visitas, un componente desestructuraba el store de Pinia para leer más cómodo la lista de interesados. La lista se mostraba una vez y no se actualizaba nunca más, aunque el store sí cambiaba. Al desestructurar, los valores se habían copiado fuera del proxy reactivo. `storeToRefs` devolvió la reactividad."],
     },
   },
   sources: [

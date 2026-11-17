@@ -60,7 +60,7 @@ export const en = {
     what: [
       "Code Bestiary is a study log in the shape of a field guide. When a concept is studied in depth, it is recorded here as a beast, with a sheet that explains how it behaves and where it bites.",
       "Each beast also gets an interactive figure: a small machine whose mechanism is the concept. Explaining an idea well enough to build a working model of it is a good test of having understood it.",
-      "Beasts that have not been studied yet stay on the grid as undiscovered specimens. They are the roadmap.",
+      "The bestiary grows as new concepts are studied. Each new beast is numbered in the order it was caught.",
     ],
     howTitle: "How it is built",
     how: [

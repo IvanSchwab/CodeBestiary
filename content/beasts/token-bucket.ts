@@ -37,7 +37,7 @@ export const tokenBucket: DiscoveredBeast = {
           body: "A client that gets a `429` and retries immediately only empties the bucket again. A `Retry-After` header and retries with backoff and jitter let clients wait for tokens instead of competing for them.",
         },
       ],
-      sightings: null,
+      sightings: ["The contact form on the Pia landing page needed a limit against spam bots. With `@upstash/ratelimit` on the table, token bucket and sliding window were compared side by side. A bucket allows short bursts, which makes sense for an API, but for a form that sends emails a strict ceiling was better: `slidingWindow(5, '1 h')` per IP."],
     },
     es: {
       tagline: "Un rate limiter que permite ráfagas cortas pero sostiene a largo plazo un ritmo fijo.",
@@ -65,7 +65,7 @@ export const tokenBucket: DiscoveredBeast = {
           body: "Un cliente que recibe un `429` y reintenta en el acto solo vuelve a vaciar el bucket. Un header `Retry-After` y los reintentos con backoff y jitter permiten que los clientes esperen tokens en lugar de competir por ellos.",
         },
       ],
-      sightings: null,
+      sightings: ["El formulario de contacto de la landing de Pia necesitaba un límite contra bots de spam. Con `@upstash/ratelimit` sobre la mesa, se compararon token bucket y sliding window. Un bucket permite ráfagas cortas, que tienen sentido en una API, pero para un formulario que manda mails convenía un techo estricto: `slidingWindow(5, '1 h')` por IP."],
     },
   },
   sources: [

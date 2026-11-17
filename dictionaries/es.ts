@@ -62,7 +62,7 @@ export const es: Dictionary = {
     what: [
       "Code Bestiary es un registro de estudio con forma de guía de campo. Cuando un concepto se estudia a fondo, se registra aquí como una bestia, con una ficha que explica cómo se comporta y dónde muerde.",
       "Cada bestia tiene además una figura interactiva: una pequeña máquina cuyo mecanismo es el concepto. Explicar una idea lo suficientemente bien como para construir un modelo que funcione es una buena prueba de haberla entendido.",
-      "Las bestias que todavía no se estudiaron quedan en la grilla como especímenes no descubiertos. Son la hoja de ruta.",
+      "El bestiario crece a medida que se estudian conceptos nuevos. Cada bestia nueva se numera en el orden en que fue capturada.",
     ],
     howTitle: "Cómo está hecho",
     how: [

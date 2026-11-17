@@ -33,7 +33,8 @@ components/figures/<slug>/  one Anatomy figure per beast
 `lib/beasts.ts` defines it. A beast is `LockedBeast` (slug, number, name, habitat) or `DiscoveredBeast`, which adds `ecosystem`, `danger` (1 to 5), `draft`, `sources` and a `sheet` per language: `tagline`, `behavior` (paragraphs), `dangers` (title and body) and `sightings` (`null` renders a marked placeholder). Backticks in sheet text render as inline code.
 
 - Locked beasts show on the home grid with their name and a faded glyph. They have no page and no link.
-- `draft: true` shows the "Draft" badge. Set it to `false` only when the author wrote or approved the text.
+- `draft: true` shows the "Draft" badge. Set it to `false` only when the author wrote or explicitly approved the text.
+- Sightings are the author's experience. Draft them only when he asks, from his real projects; otherwise leave them `null`.
 - Sources must be real, verifiable links.
 
 ## Bilingual system
@@ -64,4 +65,4 @@ components/figures/<slug>/  one Anatomy figure per beast
 
 ## Adding a beast
 
-Use `/new-beast <concept>`. It asks the author for the sheet text (never write it for them), updates the entry, builds the figure with Anatomy, wires it to the page, and commits only after the author approves.
+Use `/new-beast <concept>`. It researches the concept and drafts the sheet in both languages with `draft: true` (or uses the author's text if he brings it), updates the entry, builds the figure with Anatomy, wires it to the page, and commits only after the author approves.

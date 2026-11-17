@@ -49,12 +49,12 @@ No hay fecha de descubrimiento.
 | 005 | `jwt-refresh-tokens` | JWT with Refresh Tokens / JWT con refresh tokens | Auth | Web | Bloqueada |
 | 006 | `embeddings-vector-search` | Embeddings & Vector Search / Embeddings y búsqueda vectorial | AI / IA | Vector databases | Bloqueada |
 
-Peligrosidad del event loop: **3 de 5** (valor borrador, lo ajusta el autor). Las bloqueadas no muestran ecosistema ni peligrosidad.
+Peligrosidad del event loop: **3 de 5** (aprobada por el autor). Las bloqueadas no muestran ecosistema ni peligrosidad.
 
 ### Autoría de los textos
-- **Ficha del event loop:** la escribe Claude en inglés y español como **borrador**, con un badge discreto "Draft" / "Borrador" junto al título de la ficha. La reescribe el autor.
-- **Avistamientos:** Claude no inventa experiencia del autor. Se publica un placeholder visible y marcado, en cursiva atenuada: "Field notes pending." / "Notas de campo pendientes."
-- **Home y About:** el título, el tagline y las secciones "Qué es el proyecto" y "Cómo está hecho" son borrador de Claude. El About lleva el mismo badge de borrador. La home no lleva badge (es microcopy de interfaz); el reporte final lista todos los textos a reescribir.
+- **Fichas:** las investiga y redacta Claude en inglés y español como **borrador**, con un badge discreto "Draft" / "Borrador" junto al título de la ficha, hasta que el autor las aprueba (o las reescribe). La del event loop fue la primera y ya está aprobada.
+- **Avistamientos:** son experiencia del autor. Claude los redacta solo si el autor lo pide, a partir de sus proyectos reales, y como anécdotas ilustrativas. Si no hay, se publica un placeholder visible y marcado, en cursiva atenuada: "Field notes pending." / "Notas de campo pendientes."
+- **Home y About:** el título, el tagline y las secciones "Qué es el proyecto" y "Cómo está hecho" los redactó Claude y el autor los aprobó, así que el About ya no lleva el badge de borrador. La home no lleva badge (es microcopy de interfaz); el reporte final lista todos los textos a reescribir.
 - **Bio ("Quién soy"):** placeholder visible y marcado ("Bio pending." / "Bio pendiente."). No se inventa.
 - En los datos, cada texto borrador lleva una marca (`draft: true`) para que quitar el badge sea cambiar un valor.
 
@@ -157,4 +157,4 @@ Sin link al CV.
 ## 9. Flujo para las próximas bestias
 
 - `CLAUDE.md`, `README.md` y el comando `/new-beast` según el brief.
-- `/new-beast <concepto>` usa siempre tamaño **Figure** y las convenciones de este SPEC, pide el texto de la ficha al autor (nunca lo escribe), y commitea y pushea solo después de la aprobación.
+- `/new-beast <concepto>` usa siempre tamaño **Figure** y las convenciones de este SPEC, investiga y redacta la ficha como borrador (`draft: true`) salvo que el autor traiga su texto, la quita de borrador solo con su aprobación explícita, y commitea y pushea solo después de la aprobación.

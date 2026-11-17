@@ -37,7 +37,7 @@ export const connectionPool: DiscoveredBeast = {
           body: "Every instance of a serverless function creates its own pool. A traffic spike that starts hundreds of instances can exhaust `max_connections`. An external pooler such as PgBouncer or Supavisor shares a few real connections among all of them.",
         },
       ],
-      sightings: null,
+      sightings: ["Setting up PIA Gestión against Supabase, the direct connection turned out to be IPv6 only, so the Session pooler was the way in. Reading why it exists made it clear how few connections Postgres hands out on a small plan, and why every serverless function opening its own connection would use them up within minutes."],
     },
     es: {
       tagline: "Un conjunto fijo de conexiones abiertas a la base de datos, que se prestan y se devuelven en lugar de abrirse en cada consulta.",
@@ -65,7 +65,7 @@ export const connectionPool: DiscoveredBeast = {
           body: "Cada instancia de una función serverless crea su propio pool. Un pico de tráfico que levanta cientos de instancias puede agotar `max_connections`. Un pooler externo como PgBouncer o Supavisor reparte unas pocas conexiones reales entre todas.",
         },
       ],
-      sightings: null,
+      sightings: ["Al configurar PIA Gestión contra Supabase, resultó que la conexión directa era solo IPv6, así que se entró por el Session pooler. Leer por qué existe dejó claro las pocas conexiones que entrega Postgres en un plan chico, y por qué cada función serverless abriendo la suya las agotaría en minutos."],
     },
   },
   sources: [

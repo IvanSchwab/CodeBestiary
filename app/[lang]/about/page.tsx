@@ -6,10 +6,11 @@ import { hasLocale } from "@/lib/i18n";
 import { AUTHOR_GITHUB, AUTHOR_LINKEDIN, AUTHOR_PORTFOLIO, REPO_URL, pageMetadata } from "@/lib/site";
 
 /**
- * "What this is" and "How it is built" are drafts until the author rewrites
- * them. The bio under "Who I am" is the author's own text.
+ * Set to true to mark "What this is" and "How it is built" as drafts again.
+ * Both were drafted by Claude and approved by the author; the bio under
+ * "Who I am" is the author's own text.
  */
-const ABOUT_IS_DRAFT = true;
+const ABOUT_IS_DRAFT = false;
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/about">): Promise<Metadata> {
   const { lang } = await params;

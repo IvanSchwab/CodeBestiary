@@ -8,8 +8,8 @@ export const eventLoop: DiscoveredBeast = {
   habitat: "runtime",
   ecosystem: { en: "JavaScript", es: "JavaScript" },
   danger: 3,
-  // Draft written by Claude. Set to false once the author rewrites the sheet.
-  draft: true,
+  // Drafted by Claude and approved by the author.
+  draft: false,
   sheet: {
     en: {
       tagline: "The scheduler that decides what JavaScript runs next, one task at a time.",
@@ -37,7 +37,7 @@ export const eventLoop: DiscoveredBeast = {
           body: "It ends the function's current turn and schedules the rest as a microtask. Other code runs in between, so shared state may have changed by the time execution resumes.",
         },
       ],
-      sightings: null,
+      sightings: ["In PianoBar, notes for the practice metronome were first scheduled with `setTimeout`. While the Three.js studio was loading, the main thread stayed busy and the clicks arrived late and bunched together. The fix was to stop trusting timers for timing: a short loop now schedules notes a little ahead on the `AudioContext` clock, which keeps running even when the thread is blocked."],
     },
     es: {
       tagline: "El planificador que decide qué ejecuta JavaScript a continuación, una tarea a la vez.",
@@ -65,7 +65,7 @@ export const eventLoop: DiscoveredBeast = {
           body: "Termina el turno actual de la función y programa el resto como una microtask. Entre medio se ejecuta otro código, así que el estado compartido puede haber cambiado cuando la ejecución se reanuda.",
         },
       ],
-      sightings: null,
+      sightings: ["En PianoBar, las notas del metrónomo de práctica se programaban al principio con `setTimeout`. Mientras cargaba el estudio de Three.js, el main thread quedaba ocupado y los golpes llegaban tarde y amontonados. La solución fue dejar de confiar en los timers para el tiempo: ahora un loop corto programa las notas un poco antes sobre el reloj del `AudioContext`, que sigue corriendo aunque el hilo esté bloqueado."],
     },
   },
   sources: [

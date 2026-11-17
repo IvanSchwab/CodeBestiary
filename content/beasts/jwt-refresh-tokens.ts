@@ -37,7 +37,7 @@ export const jwtRefreshTokens: DiscoveredBeast = {
           body: "A refresh token in `localStorage` is readable by any script on the page, so a single XSS can steal the session. An `HttpOnly`, `Secure`, `SameSite` cookie keeps it out of reach of JavaScript, at the cost of handling CSRF on the refresh endpoint.",
         },
       ],
-      sightings: null,
+      sightings: ["In PIA Visitas, after the laptop woke from sleep, the first request sometimes failed with a 401. The access token had expired during the nap and the refresh had not run yet. Waiting for `onAuthStateChange` to report `TOKEN_REFRESHED` before retrying made the two lifetimes visible: a short access token, a long refresh token."],
     },
     es: {
       tagline: "Un pase de corta duración que cualquier servidor puede verificar, y una llave de larga duración que solo el emisor puede canjear.",
@@ -65,7 +65,7 @@ export const jwtRefreshTokens: DiscoveredBeast = {
           body: "Un refresh token en `localStorage` es legible por cualquier script de la página, así que un solo XSS alcanza para robar la sesión. Una cookie `HttpOnly`, `Secure` y `SameSite` lo deja fuera del alcance de JavaScript, a cambio de tener que cuidar el CSRF en el endpoint de refresh.",
         },
       ],
-      sightings: null,
+      sightings: ["En PIA Visitas, al despertar la notebook, la primera request a veces fallaba con un 401. El access token había vencido durante la suspensión y el refresh todavía no había corrido. Esperar a que `onAuthStateChange` avisara `TOKEN_REFRESHED` antes de reintentar hizo visibles las dos vidas: un access token corto y un refresh token largo."],
     },
   },
   sources: [

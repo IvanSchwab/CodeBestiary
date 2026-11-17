@@ -37,7 +37,7 @@ export const embeddingsVectorSearch: DiscoveredBeast = {
           body: "Long documents are cut into chunks before embedding. Chunks too large blur several topics into one vector; chunks too small lose the context that gives them meaning. Chunk size and overlap change the results more than most other settings.",
         },
       ],
-      sightings: null,
+      sightings: ["The PIA Gestión assistant had to answer questions like \"which contracts allow pets?\", and the clauses never used that word: they said \"domestic animals\". Searching by exact text found nothing. Searching by meaning, with embeddings of each clause and the nearest neighbors of the question, found them."],
     },
     es: {
       tagline: "El significado convertido en coordenadas, para que encontrar texto parecido sea encontrar puntos cercanos.",
@@ -65,7 +65,7 @@ export const embeddingsVectorSearch: DiscoveredBeast = {
           body: "Los documentos largos se cortan en fragmentos (chunks) antes de convertirlos. Fragmentos demasiado grandes mezclan varios temas en un solo vector; fragmentos demasiado chicos pierden el contexto que les da sentido. El tamaño y la superposición de los fragmentos cambian los resultados más que casi cualquier otro ajuste.",
         },
       ],
-      sightings: null,
+      sightings: ["El asistente de PIA Gestión tenía que responder preguntas como \"¿qué contratos permiten mascotas?\", y las cláusulas nunca usaban esa palabra: decían \"animales domésticos\". Buscar por texto exacto no encontraba nada. Buscar por significado, con embeddings de cada cláusula y los vecinos más cercanos de la pregunta, sí."],
     },
   },
   sources: [
