@@ -14,7 +14,7 @@ What was decided during the build that `SPEC.md` does not cover, or that departs
 - **Open Graph image** uses the default font of `next/og`, not Fraunces. Shipping the font file only for the social card was not worth it.
 - **Favicon** is an SVG of the event loop glyph (`app/icon.svg`), replacing the scaffold's default.
 - **Locked glyphs** are drawn in muted ink at reduced opacity instead of the rule color, which was nearly invisible in the dark theme.
-- **Sticky figure only on tall screens.** The SPEC asks for a sticky figure from 1024 px. The figure block (card, legend, controls, code, console and caption) is about 920 px tall at desktop width, so it is sticky only when the viewport is at least 960 px high; on shorter screens it scrolls with the page instead of being cut off.
+- **Sticky figure on wide screens of any usual height.** The SPEC asks for a sticky figure from 1024 px. The figure block (card, legend, controls, panel and caption) is 920 to 1070 px tall, more than most laptop viewports. It was first sticky only from 960 px of height, which left it scrolling with the page on a MacBook. It is now sticky from 600 px of height: the drawing, legend, controls and step text stay in view, and the lower panel (code, console, caption) waits below the fold until the end of the sheet. Only very short windows scroll it with the page.
 - **ESLint ignores** `.claude/`, `.agents/` and `components/iso/` (vendored Anatomy code).
 - **About:** the bio is the author's text, lightly adapted and translated to English. Links are LinkedIn, GitHub and the portfolio. The draft badge moved from the page title to the two sections that are still drafts.
 
@@ -61,3 +61,23 @@ What was decided during the build that `SPEC.md` does not cover, or that departs
 - **Fig number follows the specimen number** ("Fig 4"), as the Vue reactivity figure does ("Fig 2").
 - **Size:** 63 solids, about 570 paths at rest, SVG only. Painter's order is set by hand.
 - **Panel styles are duplicated** from the event loop with a `cp-` prefix. A shared panel stylesheet is left for later.
+
+## JWT with refresh tokens figure
+
+- **The object.** A bench with two machines and nothing joining them. The issuing cabinet (auth server) carries a ledger rack with one stub per refresh token: up when issued, half down when used, gone when revoked. A family bar between two uprights comes down on the whole row when reuse is detected. The reader locker (API) checks cards with its own clock (long hand now, short hand the card's `exp`) and a twin seal (the shared key), raises a 401 flag or opens a drawer on a 200, and never consults the cabinet.
+- **Two lanes.** Access cards run from the cabinet past the client tray to the API; refresh tags run only between the cabinet and the tray, so a refresh token physically cannot reach the API.
+- **Numbers and script.** Access tokens live 15 minutes, refresh tokens 7 days; a token is valid while `now < exp`. Login, two calls, expiry and a 401, refresh with rotation, a retry, then an attacker replays the used R1: the family is revoked, the client's A2 still works until it expires, and the next refresh fails, so the client must log in again.
+- **The token endpoint answers 400 `invalid_grant`**, as RFC 6749 specifies; 401 is the API's answer to an expired access token. Refresh checks run in this order: revoked, used (reuse revokes the family), expired.
+- **Real signatures.** The model signs and verifies HS256 JWTs with SHA-256, HMAC and base64url written in TypeScript, so it runs in the browser. The test checks them byte for byte against Node's `crypto`, compares the script with an independent reference, checks tampering (`alg: none`, another key, an edited payload) and runs 200 seeded random scenarios against the invariants. Refresh values are derived from an HMAC to keep the model deterministic; a real server draws random bytes. The demo secret ships in the client bundle on purpose.
+- **Scope cuts:** tampering and logout are in the model and the test but not in the script; one family, no second login.
+- **Size:** 63 solids, about 570 paths, SVG only. Painter's order is set by hand; tokens leaving the cabinet are clipped at its face.
+
+## Embeddings and vector search figure
+
+- **The object.** A search bench with an encoder, a turntable and a sweep bar. Text cards drop into the encoder (the embedding model), whose two sliders show the output: 2 components here, stated in the caption against the hundreds or thousands of real models. Each stored document is a pin on the turntable at its vector's angle, on a circle of radius 1.
+- **Cosine as a projection.** A query goes through the same encoder, which turns the table until the query vector points along the rail. A pin's position along the rail scale (0 at the center, 1 at the rim) is its cosine similarity with the query. A sweep bar runs from 1 toward the center and raises each pin it passes, so results come up in score order, and stops after k = 3.
+- **The threshold is a pawl** on the rail at 0.8. In the threshold step the bar parks, the pawl rises and the bar sweeps again but cannot pass it. The near query keeps its top 3; the far query, whose best score is 0.377, keeps nothing.
+- **Vectors are placed by hand:** seven 2D documents in three topics (bread, pets, bicycles) and two queries, with clear gaps between the 3rd and 4th scores and around the threshold.
+- **Scope cut:** approximate indexes (HNSW, IVFFlat) are left out; the figure shows exact search. The sheet explains them.
+- **The test** compares the rankings with a brute-force cosine reference written in the test, on the figure's data and on seeded random indexes in 2 and 384 dimensions, and checks that the dot product of normalized vectors equals the cosine, stable ties, scale invariance and the threshold result.
+- **Rendering.** Pins are drawn in two layers, in front of and behind the bar, and depth-sorted each frame; the rest of the painter's order is set by hand. 55 visible solids, about 600 paths, SVG only.

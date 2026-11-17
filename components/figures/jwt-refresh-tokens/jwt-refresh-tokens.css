@@ -1,0 +1,222 @@
+.jw .jw-stage {
+  border-radius: 6px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.jw .jw-stage:focus-visible {
+  outline: 1px solid var(--anatomy-muted);
+  outline-offset: 6px;
+}
+
+.jw .jw-hand {
+  stroke-width: 1.1;
+}
+
+.jw .jw-hand-exp {
+  stroke-width: 1.7;
+}
+
+/* The client the step is about carries the one lit accent. */
+.jw .iso-solid[data-lit] > .iso-edge {
+  stroke-width: 1;
+}
+
+/* A slot or a hole: the dark inside of a part, seen through its opening. */
+.jw .jw-void {
+  fill: color-mix(in srgb, var(--anatomy-lo) 45%, var(--anatomy-shade-0));
+  stroke: var(--anatomy-mid);
+  stroke-width: 0.6;
+  stroke-linejoin: round;
+}
+
+.jw-caption {
+  margin-top: 0.8rem;
+  font-family: var(--font-source-serif), Georgia, serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+/* Below the card: controls, the sentence for the step, the tokens and the request. */
+
+.jw-panel {
+  margin-top: 0.9rem;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+  font-family: var(--font-source-serif), Georgia, serif;
+}
+
+.jw-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.jw-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.5rem;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.jw-controls button:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+
+.jw-controls button:disabled {
+  color: var(--rule);
+  cursor: default;
+}
+
+.jw-controls button.jw-play {
+  min-width: 7.5rem;
+  border-color: var(--ink);
+}
+
+.jw-controls svg {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.jw-step {
+  margin-left: auto;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.jw-say {
+  /* Room for three lines so the panel does not jump between steps. */
+  min-height: 4.2em;
+  padding: 0.7rem 0.8rem 0.5rem;
+  font-size: 0.98rem;
+  line-height: 1.4;
+}
+
+.jw-state,
+.jw-io {
+  display: grid;
+  border-top: 1px solid var(--rule);
+}
+
+.jw-state {
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 0.8fr);
+}
+
+.jw-io {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.jw-state > div,
+.jw-io > div {
+  padding: 0.45rem 0.8rem 0.55rem;
+  min-width: 0;
+}
+
+.jw-state > div + div,
+.jw-io > div + div {
+  border-left: 1px solid var(--rule);
+}
+
+.jw-state dt,
+.jw-io dt {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.jw-state dd,
+.jw-io dd {
+  margin-top: 0.1rem;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Fixed heights, so the panel does not jump between steps. */
+.jw-state dd {
+  min-height: 2.9em;
+}
+
+.jw-io dd {
+  min-height: 4.35em;
+}
+
+.jw-state dd span {
+  display: block;
+}
+
+.jw-io code {
+  white-space: pre-line;
+}
+
+@media (max-width: 640px) {
+  .jw-state {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .jw-state > div:last-child {
+    grid-column: span 2;
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .jw-state > div:last-child dd {
+    min-height: 0;
+  }
+  .jw-io {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .jw-io > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .jw-controls button.jw-play {
+    min-width: 2.25rem;
+  }
+  .jw-controls button.jw-play span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+/* On a phone the drawing is enlarged a little inside the card so the parts stay readable. */
+@media (max-width: 560px) {
+  .jw .jw-stage {
+    overflow: hidden;
+  }
+  .iso-plate .jw-stage .iso-svg {
+    width: 114%;
+    margin: -2% -7% -2%;
+  }
+}
